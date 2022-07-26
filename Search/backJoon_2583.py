@@ -35,7 +35,6 @@ for i in range(m):
         if not visit[i][j] and not data[i][j]:
             visit[i][j]=1
             bfs(i,j)
-            #count=1 #count가 gloabl이라 계속 초기값 설정해줘야 함
             
 result.sort()
 print(len(result))
