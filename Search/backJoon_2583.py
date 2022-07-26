@@ -1,44 +1,44 @@
 from collections import deque
+
 m,n,k=map(int,input().split())
-graph=[[0]*n for _ in range(m)]
+data=[[0]*n for _ in range(m)]
+visit=[[0]*n for _ in range(m)]
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
-
-#사각형 있는 곳 채우기(b,a)~(d,c)
+result=[]
+def change(a,b,c,d):
+    for i in range(m-d,m-b):
+        for j in range(a,c):
+            data[i][j]=1
 for _ in range(k):
     a,b,c,d=map(int,input().split())
-    for i in range(b,d):
-        for j in range(a,c):
-            graph[i][j]=1
-            
+    change(a,b,c,d)
+
 def bfs(x,y):
-    global ans
     queue=deque()
-    queue.append([x,y])
-    graph[x][y]=1
+    queue.append((x,y))
+    global result
+    count=1
     while queue:
         x,y=queue.popleft()
         for i in range(4):
-            nx=x+dx[i]
-            ny=y+dy[i]
+            nx,ny=x+dx[i],y+dy[i]
             if 0<=nx<m and 0<=ny<n:
-                if graph[nx][ny]==0:
-                    graph[nx][ny]=1
-                    queue.append([nx,ny])
-                    ans+=1
-                    
-ans=0
-cnt=0
-result=[]
+                if not visit[nx][ny] and not data[nx][ny]:
+                    visit[nx][ny]=1
+                    count+=1 #너무 복잡하게 생각함 
+                    queue.append((nx,ny)) #bfs의 기본 중 기본을 빼먹음
+    result.append(count)
+    
 for i in range(m):
     for j in range(n):
-        if graph[i][j]==0:
+        if not visit[i][j] and not data[i][j]:
+            visit[i][j]=1
             bfs(i,j)
-            cnt+=1
-            result.append(ans)
-            ans=0
-print(cnt)
+            #count=1 #count가 gloabl이라 계속 초기값 설정해줘야 함
+            
 result.sort()
-for i in range(cnt):
-    print(result[i]+1,end=' ')
-                       
+print(len(result))
+for i in range(len(result)):
+    print(result[i], end =' ')
+                   
