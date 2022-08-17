@@ -15,9 +15,7 @@ def solution(numbers, hand):
             answer += 'R'
             hands['right'] = directory[x]
         elif x in [2,5,8,0]:
-            
             left_distance = abs(directory[x][0] - hands['left'][0]) + abs(directory[x][1] - hands['left'][1])
-            
             right_distance = abs(directory[x][0] - hands['right'][0]) + abs(directory[x][1] - hands['right'][1])
             
             if left_distance < right_distance:
