@@ -1,7 +1,6 @@
 def solution(s):
     n = len(s)    
     answer = 1001
-
     for i in range(1, n + 1):
         temp = s[ : i]
         count = 1
