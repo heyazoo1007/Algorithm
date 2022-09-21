@@ -1,4 +1,5 @@
 from collections import deque
+
 n,m=map(int,input().split())
 data=[]
 for _ in range(n):
@@ -19,5 +20,6 @@ def bfs(x,y):
                 if not visit[na][nb] and data[na][nb]==1:
                     visit[na][nb]=visit[a][b]+1
                     queue.append((na,nb))
+                    
 bfs(0,0)
 print(visit[-1][-1])
