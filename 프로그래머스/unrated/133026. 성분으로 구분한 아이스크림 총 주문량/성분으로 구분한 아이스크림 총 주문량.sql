@@ -4,4 +4,4 @@ from first_half fh
 join icecream_info ii 
 on ii.flavor = fh.flavor
 group by ingredient_type
-order by fh.total_order;
+order by total_order;
