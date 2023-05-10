@@ -1,36 +1,43 @@
-from collections import deque
+n, m, v = map(int, input().split())
 
-n,m,v=map(int,input().split())
-graph=[[] for _ in range(n+1)] #여기 n+1로 하기
-
+graph = [[] for _ in range(n + 1)]
 for _ in range(m):
-    a,b=map(int,input().split())
+    a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
-    graph[a].sort() #여기
-    graph[b].sort() #여기 추가하기 안그럼 11%에서 틀림
+    graph[a].sort()
+    graph[b].sort()
+    
+def dfs(node, arr, visit):
+    visit[node] = 1
+    for each in graph[node]:
+        if not visit[each]:
+            arr.append(each)
+            dfs(each, arr, visit)
 
-def dfs(x):
-    visit[x]=1 #시작할 때 방문 처리
-    print(x, end = ' ') #이런식으로 출력하기 
-    for i in graph[x]: #range(graph[x]) 아님
-        if not visit[i]:
-            dfs(i)
 
-def bfs(x):
-    queue=deque()
-    queue.append(x)
-    visit[x]=1
-    while len(queue)>0:
-        a=queue.popleft()
-        print(a, end = ' ')
-        for i in graph[a]:
-            if not visit[i]:
-                visit[i]=1
-                queue.append(i)
-                
-visit=[0]*(n+1) 
-dfs(v)
+def bfs(node, arr, visit):
+    queue = [node]
+    visit[node] = 1
+    
+    while queue:
+        x = queue.pop(0)
+        for each in graph[x]:
+            if not visit[each]:
+                visit[each] = 1
+                arr.append(each)
+                queue.append(each)
+
+arr_dfs = [v]
+visit = [0] * (n + 1)
+dfs(v, arr_dfs, visit)
+
+arr_bfs = [v]
+visit = [0] * (n + 1)
+bfs(v, arr_bfs, visit)
+
+for i in range(len(arr_dfs)):
+    print(arr_dfs[i], end = ' ')
 print()
-visit=[0]*(n+1) 
-bfs(v)
+for i in range(len(arr_bfs)):
+    print(arr_bfs[i], end = ' ')
