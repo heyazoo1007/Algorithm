@@ -1,34 +1,34 @@
-from collections import deque 
+import sys
+input = sys.stdin.readline
 
-dx=[-1,1,0,0]
-dy=[0,0,-1,1]
-
-def bfs(x,y):
-    queue=deque()
-    queue.append((x,y))
+def bfs(x, y, visit):
+    queue = [[x, y]]
+    visit[x][y] = 1
+    dx, dy = [-1, 1, 0, 0], [0, 0, -1, 1]
+    
     while queue:
-        a,b=queue.popleft()
+        x, y = queue.pop(0)
         for i in range(4):
-            na,nb=a+dx[i],b+dy[i]
-            if 0<=na<m and 0<=nb<n:
-                if not visit[na][nb] and data[na][nb]==1:
-                    visit[na][nb]=1
-                    queue.append((na,nb))
+            nx, ny = x + dx[i], y + dy[i]
+            if 0 <= nx < m and 0 <= ny < n:
+                if not visit[nx][ny] and matrix[nx][ny] == 1:
+                    visit[nx][ny] = 1
+                    queue.append([nx, ny])
         
+    
 for _ in range(int(input())):
-    m,n,k=map(int,input().split())
-    data=[[0]*n for _ in range(m)]
-    visit=[[0]*n for _ in range(m)]
-    count=0
-    
+    m, n, k = map(int, input().split())
+    matrix = [[0] * n for _ in range(m)]
     for _ in range(k):
-        a,b=map(int,input().split())
-        data[a][b]=1
-    
+        a, b = map(int, input().split())
+        matrix[a][b] = 1
+        
+    visit = [[0] * n for _ in range(m)]  
+    answer = 0 
     for i in range(m):
         for j in range(n):
-            if not visit[i][j] and data[i][j]==1:
-                count+=1
-                visit[i][j]=1
-                bfs(i,j)
-    print(count)
+            if not visit[i][j] and matrix[i][j] == 1:
+                answer += 1
+                bfs(i, j, visit)
+                
+    print(answer)
