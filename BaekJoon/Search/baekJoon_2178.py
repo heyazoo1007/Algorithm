@@ -1,25 +1,18 @@
-from collections import deque
-
-n,m=map(int,input().split())
-data=[]
+n, m = map(int, input().split())
+matrix = []
 for _ in range(n):
-    data.append(list(map(int,input())))
-visit=[[0]*m for _ in range(n)]    
-dx=[-1,1,0,0]
-dy=[0,0,-1,1]
-
-def bfs(x,y):
-    visit[x][y]=1
-    queue=deque()
-    queue.append((x,y))
-    while queue:
-        a,b=queue.popleft()
-        for i in range(4):
-            na,nb=a+dx[i],b+dy[i]
-            if 0<=na<n and 0<=nb<m:
-                if not visit[na][nb] and data[na][nb]==1:
-                    visit[na][nb]=visit[a][b]+1
-                    queue.append((na,nb))
-                    
-bfs(0,0)
-print(visit[-1][-1])
+    matrix.append(list(map(int, input())))
+    
+queue = [[0, 0]]
+dx, dy = [-1, 1, 0, 0], [0, 0, -1, 1]
+while queue:
+    x, y = queue.pop(0)
+    
+    for i in range(4):
+        nx, ny = x + dx[i], y + dy[i]
+        if 0 <= nx < n and 0 <= ny < m:
+            if matrix[nx][ny] == 1:
+                matrix[nx][ny] = matrix[x][y] + 1
+                queue.append([nx, ny])
+                
+print(matrix[-1][-1])
