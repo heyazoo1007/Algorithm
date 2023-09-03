@@ -28,6 +28,7 @@ for _ in range(int(input())):
             after_index += 1
 
 m = len(switches)
+# 20개를 기준으로 줄바꿈 해야함
 for i in range(1, len(switches)):
     print(switches[i], end = ' ')
     if i % 20 == 0 :
