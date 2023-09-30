@@ -25,8 +25,10 @@ while True:
         # 한번 돌았으면 그 방향으로 작업시작
         d = (d+3)%4
         
-        # 현재 방향에서 반시계 방향 90도 회줜
+        # 현재 방향에서 반시계 방향 90도 회전
         nx, ny = x + dx[d], y + dy[d]
+        
+        # 상하좌우에서 접근할 수 있고, 방문하지 않은 위치 존재
         if 0 <= nx < n and 0 <= ny < m and matrix[nx][ny] == 0:
             if not visit[nx][ny]:
                 visit[nx][ny] = 1
@@ -35,6 +37,7 @@ while True:
                 #청소 한 방향이라도 했으면 다음으로 넘어감
                 flag = True
                 break
+                
     if not flag: # 4방향 모두 청소가 되어 있을 때,
         if matrix[x - dx[d]][y - dy[d]] == 1: #후진했는데 벽
             print(cnt)
