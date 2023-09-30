@@ -2,9 +2,10 @@ import sys
 input = sys.stdin.readline
 
 n,m = map(int,input().split())
+x, y, d = map(int,input().split())
+
 matrix = []
 visit = [[0] * m for _ in range(n)]
-x, y, d = map(int,input().split())
 
 # d => 0,3,2,1 순서로 돌아야한다.
 dx = [-1,0,1,0]
